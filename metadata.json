@@ -1,0 +1,5 @@
+{
+  "name": "Demectai",
+  "description": "A modern web application to detect if an image is AI-generated. Users can upload an image or paste a URL to get an instant analysis, including a confidence score and details on suspicious regions.",
+  "requestFramePermissions": []
+}
