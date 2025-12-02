@@ -8,6 +8,47 @@ interface DropzoneProps {
 
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/bmp'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+const MAX_DIMENSION = 1024; // Max width/height for resizing
+
+// Compress and resize image to reduce payload size
+const compressImage = (file: File, maxDimension: number = MAX_DIMENSION): Promise<{ base64: string; mimeType: string }> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    img.onload = () => {
+      let { width, height } = img;
+      
+      // Calculate new dimensions while maintaining aspect ratio
+      if (width > maxDimension || height > maxDimension) {
+        if (width > height) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        } else {
+          width = Math.round((width * maxDimension) / height);
+          height = maxDimension;
+        }
+      }
+      
+      canvas.width = width;
+      canvas.height = height;
+      
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, width, height);
+        // Use JPEG for better compression, quality 0.85
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        const base64 = dataUrl.split(',')[1];
+        resolve({ base64, mimeType: 'image/jpeg' });
+      } else {
+        reject(new Error('Could not get canvas context'));
+      }
+    };
+    
+    img.onerror = () => reject(new Error('Could not load image'));
+    img.src = URL.createObjectURL(file);
+  });
+};
 
 const fileToBase64 = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -40,10 +81,11 @@ export function Dropzone({ onImageSet }: DropzoneProps) {
     }
 
     try {
-      const base64 = await fileToBase64(file);
+      // Always compress/resize to ensure it works with API limits
+      const { base64, mimeType } = await compressImage(file);
       const objectUrl = URL.createObjectURL(file);
       setPreview(objectUrl);
-      onImageSet({ url: objectUrl, base64, mimeType: file.type });
+      onImageSet({ url: objectUrl, base64, mimeType });
     } catch (e) {
       setError('Could not process file.');
       onImageSet(null);
@@ -89,18 +131,17 @@ export function Dropzone({ onImageSet }: DropzoneProps) {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.blob();
         })
-        .then(blob => {
-            const reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = () => {
-                const base64data = reader.result as string;
-                setPreview(base64data);
-                onImageSet({
-                    url: base64data,
-                    base64: base64data.split(',')[1],
-                    mimeType: blob.type
-                });
-            };
+        .then(async blob => {
+            // Convert blob to File and compress
+            const file = new File([blob], 'image.jpg', { type: blob.type || 'image/jpeg' });
+            const { base64, mimeType } = await compressImage(file);
+            const previewUrl = URL.createObjectURL(blob);
+            setPreview(previewUrl);
+            onImageSet({
+                url: previewUrl,
+                base64,
+                mimeType
+            });
         })
         .catch(() => {
             setError('Could not fetch image from URL. Please ensure it is publicly accessible.');
