@@ -1,20 +1,101 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+
+# 🔍 Demectai
+
+### AI-Powered Image Authenticity Detector
+
+Instantly determine if an image is **human-created** or **AI-generated** using advanced deep learning.
+
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-demectai.vercel.app-00C7B7?style=for-the-badge)](https://demectai.vercel.app)
+[![Hugging Face](https://img.shields.io/badge/🤗_Model-Hugging_Face-FFD21E?style=for-the-badge)](https://huggingface.co/spaces/nahid112376/demectai)
+
+---
+
+<!-- Add your screen recording GIF here -->
+<!-- To create a GIF: Record your screen, then convert to GIF using: -->
+<!-- https://ezgif.com/video-to-gif or https://cloudconvert.com/mp4-to-gif -->
+
+![Demo](demo.gif)
+
+<!-- Or if you have an MP4 video, use this instead: -->
+<!-- https://github.com/user-attachments/assets/YOUR_VIDEO_ID -->
+
 </div>
 
-# Run and deploy your AI Studio app
+## ✨ Features
 
-This contains everything you need to run your app locally.
+- 🎯 **High Accuracy Detection** - Ensemble model combining TCN + ResNet-1D classifiers
+- ⚡ **Real-time Analysis** - Get results in seconds
+- 📱 **Mobile Friendly** - Responsive design works on all devices
+- 🔒 **Privacy First** - Images are processed securely and not stored
+- 🌐 **Free to Use** - No account required
 
-View your app in AI Studio: https://ai.studio/apps/drive/1QbCbL3nez1dck7pDrEnlZmpAALoTdGuq
+## 🛠️ Tech Stack
 
-## Run Locally
+| Component | Technology |
+|-----------|------------|
+| **Frontend** | React, TypeScript, Tailwind CSS, Vite |
+| **Backend API** | Vercel Serverless Functions |
+| **ML Model** | PyTorch, Qwen2.5-VL, TCN, ResNet-1D |
+| **Model Hosting** | Hugging Face Spaces |
+| **Deployment** | Vercel |
 
-**Prerequisites:**  Node.js
+## 🧠 How It Works
 
+1. **Feature Extraction** - Qwen2.5-VL-3B vision model extracts deep features from the image
+2. **Dual Classification** - TCN and ResNet-1D classifiers analyze the features independently  
+3. **Stacking Ensemble** - Meta-learner combines predictions for final verdict
+4. **Result** - Returns AI probability percentage with confidence score
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🚀 Run Locally
+
+**Prerequisites:** Node.js 18+
+
+```bash
+# Clone the repo
+git clone https://github.com/nahid0-0/Demectai.git
+cd Demectai
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Start the proxy server (in another terminal)
+node server.js
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📁 Project Structure
+
+```
+Demectai/
+├── api/
+│   └── detect.js        # Vercel serverless function
+├── components/          # React components
+├── services/
+│   └── hfService.ts     # Hugging Face API integration
+├── App.tsx              # Main app component
+├── server.js            # Local proxy server
+└── vercel.json          # Vercel configuration
+```
+
+## 🔗 Links
+
+- **Live Website:** [demectai.vercel.app](https://demectai.vercel.app)
+- **Hugging Face Space:** [nahid112376/demectai](https://huggingface.co/spaces/nahid112376/demectai)
+- **GitHub:** [nahid0-0/Demectai](https://github.com/nahid0-0/Demectai)
+
+## 📄 License
+
+MIT License - feel free to use this project for your own purposes.
+
+---
+
+<div align="center">
+
+Made with ❤️ by [nahid0-0](https://github.com/nahid0-0)
+
+</div>
