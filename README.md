@@ -15,7 +15,11 @@ Instantly determine if an image is **human-created** or **AI-generated** using a
 <!-- To create a GIF: Record your screen, then convert to GIF using: -->
 <!-- https://ezgif.com/video-to-gif or https://cloudconvert.com/mp4-to-gif -->
 
-![Demo](demo.gif)
+
+https://github.com/user-attachments/assets/5aae3a41-e0d5-43fd-b6c4-2f49810490f6
+
+
+
 
 https://github.com/user-attachments/assets/08a32b88-0980-45b5-8239-1cc2adfb2a46
 
