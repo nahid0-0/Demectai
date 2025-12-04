@@ -21,9 +21,6 @@ https://github.com/user-attachments/assets/5aae3a41-e0d5-43fd-b6c4-2f49810490f6
 
 
 
-https://github.com/user-attachments/assets/08a32b88-0980-45b5-8239-1cc2adfb2a46
-
-
 
 <!-- Or if you have an MP4 video, use this instead: -->
 <!-- https://github.com/user-attachments/assets/YOUR_VIDEO_ID -->
