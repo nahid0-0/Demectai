@@ -17,6 +17,10 @@ Instantly determine if an image is **human-created** or **AI-generated** using a
 
 ![Demo](demo.gif)
 
+https://github.com/user-attachments/assets/08a32b88-0980-45b5-8239-1cc2adfb2a46
+
+
+
 <!-- Or if you have an MP4 video, use this instead: -->
 <!-- https://github.com/user-attachments/assets/YOUR_VIDEO_ID -->
 
